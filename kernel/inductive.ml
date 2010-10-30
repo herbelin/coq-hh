@@ -202,13 +202,13 @@ let type_of_inductive env (_,mip) =
 
 (* The max of an array of universes *)
 
-let cumulate_constructor_univ u = function
-  | Prop Null -> u
-  | Prop Pos -> sup type0_univ u
-  | Type u' -> sup u u'
+let univ_of_sort = function
+  | Prop Pos -> type0m_univ
+  | Prop Null -> type0_univ
+  | Type u -> u
 
 let max_inductive_sort =
-  Array.fold_left cumulate_constructor_univ type0m_univ
+  Array.fold_left (fun u s -> sup u (univ_of_sort s)) type0m_univ
 
 (************************************************************************)
 (* Type of a constructor *)
