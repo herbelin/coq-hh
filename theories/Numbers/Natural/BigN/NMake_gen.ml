@@ -1690,7 +1690,8 @@ let _ =
   pa " Admitted.";
   pp " Proof.";
   pp " intros x; unfold sqrt; case x; clear x.";
-  for i = 0 to size do
+  pp " intros x; unfold reduce_0; exact (spec_sqrt w0_spec x).";
+  for i = 1 to size do
     pp " intros x; rewrite spec_reduce_%i; exact (spec_sqrt w%i_spec x)." i i;
   done;
   pp " intros n x; rewrite spec_reduce_n; exact (spec_sqrt (wn_spec n) x).";
@@ -2098,7 +2099,8 @@ let _ =
   pa " Admitted.";
   pp " Proof.";
   pp " intros x; case x; unfold head0; clear x.";
-  for i = 0 to size do
+  pp " intros x; unfold reduce_0; exact (spec_head00 w0_spec x).";
+  for i = 1 to size do
     pp "   intros x; rewrite spec_reduce_%i; exact (spec_head00 w%i_spec x)." i i;
   done;
   pp " intros n x; rewrite spec_reduce_n; exact (spec_head00 (wn_spec n) x).";
@@ -2148,7 +2150,8 @@ let _ =
   pa " Admitted.";
   pp " Proof.";
   pp " intros x; case x; unfold tail0; clear x.";
-  for i = 0 to size do
+  pp " intros x; unfold reduce_0; exact (spec_tail00 w0_spec x).";
+  for i = 1 to size do
     pp "   intros x; rewrite spec_reduce_%i; exact (spec_tail00 w%i_spec x)." i i;
   done;
   pp " intros n x; rewrite spec_reduce_n; exact (spec_tail00 (wn_spec n) x).";
@@ -2161,7 +2164,8 @@ let _ =
   pa " Admitted.";
   pp " Proof.";
   pp " intros x; case x; clear x; unfold tail0.";
-  for i = 0 to size do
+  pp " intros x Hx; unfold reduce_0; exact (spec_tail0 w0_spec x Hx).";
+  for i = 1 to size do
     pp " intros x Hx; rewrite spec_reduce_%i; exact (spec_tail0 w%i_spec x Hx)." i  i;
   done;
   pp " intros n x Hx; rewrite spec_reduce_n; exact (spec_tail0 (wn_spec n) x Hx).";
@@ -2184,7 +2188,8 @@ let _ =
   pa " Admitted.";
   pp " Proof.";
   pp " intros x; case x; clear x; unfold Ndigits, digits.";
-  for i = 0 to size do
+  pp " intros _; try unfold reduce_0; exact (spec_zdigits w0_spec).";
+  for i = 1 to size do
     pp " intros _; try rewrite spec_reduce_%i; exact (spec_zdigits w%i_spec)." i i;
   done;
   pp " intros n _; try rewrite spec_reduce_n; exact (spec_zdigits (wn_spec n)).";
