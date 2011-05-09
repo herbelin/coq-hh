@@ -95,6 +95,11 @@ let cases_predicate_names tml =
     | (tm,(na,None)) -> [na]
     | (tm,(na,Some (_,_,_,nal))) -> na::nal) tml)
 
+let mkRApp loc p t =
+  match p with
+  | RApp (loc,f,l) -> RApp (loc,f,l@[t])
+  | _ -> RApp (loc,p,[t])
+
 let map_rawdecl_left_to_right f (na,k,obd,ty) = 
   let comp1 = Option.map f obd in
   let comp2 = f ty in
